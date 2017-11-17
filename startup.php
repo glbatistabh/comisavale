@@ -5,7 +5,12 @@
  */
 session_start();
 
-date_default_timezone_set("America/Sao_Paulo");
+$config = parse_ini_file("./config/config.php", true);
+$configDB = $config['database'];
+$configSystem = $config['system'];
+
+date_default_timezone_set($configSystem["timezone"]);
+
 
 if (!defined('APP_HTTP'))
   define('APP_HTTP', 'http://' . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/.\\') . '/');
@@ -17,15 +22,13 @@ if (!defined('APP_DIR'))
 /**
  *
  */
-require_once APP_DIR . '/adodb/adodb.inc.php';
-require_once APP_DIR . '/adodb/adodb-error.inc.php';
-require_once APP_DIR . '/adodb/adodb-active-record.inc.php';
+require_once APP_DIR . './plugins/autoload.php';
 
-define('APPDB_DRIVER', 'mysqli');
-define('APPDB_HOSTNAME', 'XXXX');
-define('APPDB_USERNAME', 'XXXX');
-define('APPDB_PASSWORD', 'XXXX');
-define('APPDB_DATABASE', 'XXXX');
+define('DB_DRIVER',   $configDB['DB_DRIVER']);
+define('DB_HOSTNAME', $configDB['DB_HOSTNAME']);
+define('DB_USERNAME', $configDB['DB_USERNAME']);
+define('DB_PASSWORD', $configDB['DB_PASSWORD']);
+define('DB_DATABASE', $configDB['DB_DATABASE']);
 
 global $ADODB_CACHE_DIR;
 $ADODB_CACHE_DIR = APP_DIR . "/cache/ADODB_CACHE/";
@@ -57,9 +60,9 @@ $ADODB_ASSOC_CASE = 2; # use native-case for ADODB_FETCH_ASSOC
 //$ADODB_LANG = 'NATIVE';
 
 /* @var $dbase ADODB_mysqli */
-$dbase = NewADOConnection(APPDB_DRIVER);
+$dbase = NewADOConnection(DB_DRIVER);
 $dbase->debug = false; // on/off debug
-$dbase->Connect(APPDB_HOSTNAME, APPDB_USERNAME, APPDB_PASSWORD, APPDB_DATABASE) or die("Erro ao conectar ao banco " . APPDB_DATABASE);
+$dbase->Connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE) or die("Erro ao conectar ao banco " . DB_DATABASE);
 $dbase->LogSQL(false);
 $dbase->SetDateLocale('PT_BR');
 $dbase->SetFetchMode(ADODB_FETCH_ASSOC);
@@ -104,16 +107,14 @@ class Menu {
 /**
  * SmartyComisa
  */
-require_once APP_DIR . '/smarty/libs/Smarty.class.php';
-
 class SmartyComisa extends Smarty {
 
   public function __construct() {
     parent::__construct();
     $this->cache_dir = APP_DIR . '/cache/smarty/';
-    $this->config_dir = APP_DIR . '/smarty/configs/';
+    $this->config_dir[0] = APP_DIR . './config/smarty/';
     $this->compile_dir = APP_DIR . '/cache/smarty/templates_c/';
-    $this->template_dir = APP_DIR . '/templates/aircraftAdmin/';
+    $this->template_dir[0] = APP_DIR . '/templates/aircraftAdmin/';
     $this->left_delimiter = "{#";
     $this->right_delimiter = "#}";
 
