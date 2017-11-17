@@ -1,0 +1,18 @@
+{
+    "config": {
+        "vendor-dir": "plugins"
+    },
+    "require": {
+        "adodb/adodb-php": "5.*",
+        "phpmailer/phpmailer": "5.*",
+        "smarty/smarty": "3.*",
+        "ramsey/uuid": "2.*",
+        "piwik/ini": "^1.0"
+    },
+    "autoload": {
+        "files": [
+            "plugins/adodb/adodb-php/toexport.inc.php",
+            "plugins/adodb/adodb-php/adodb-error.inc.php",
+            "plugins/adodb/adodb-php/adodb-active-record.inc.php"]
+    }
+}

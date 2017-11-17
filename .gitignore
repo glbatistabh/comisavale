@@ -1,7 +1,8 @@
 *.tgz
+composer.lock
 log/
 cache/
-.cache/
+plugins/
 valesErro/
 valesPendentes/
 valesProcessados/
