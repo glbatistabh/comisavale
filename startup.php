@@ -66,8 +66,10 @@ $dbase->Connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE) or die("Erro
 $dbase->LogSQL(false);
 $dbase->SetDateLocale('PT_BR');
 $dbase->SetFetchMode(ADODB_FETCH_ASSOC);
-ADOdb_Active_Record::SetDatabaseAdapter($dbase);
 $dbase->Execute("SET time_zone='America/Sao_Paulo'");
+$dbase->Execute("SET lc_time_names = ?", 'pt_BR') or die($dbase->ErrorMsg());
+$dbase->Execute("SET time_zone = ?", $configSystem["timezone"]) or die($dbase->ErrorMsg());
+ADOdb_Active_Record::SetDatabaseAdapter($dbase);
 
 //config do cache
 $dbase->memCache = false;
