@@ -22,10 +22,10 @@ require_once APP_DIR . '/adodb/adodb-error.inc.php';
 require_once APP_DIR . '/adodb/adodb-active-record.inc.php';
 
 define('APPDB_DRIVER', 'mysqli');
-define('APPDB_HOSTNAME', 'mysql.stonetech.info');
-define('APPDB_USERNAME', 'gladbatista');
-define('APPDB_PASSWORD', 'mudeasenha');
-define('APPDB_DATABASE', 'comisadb');
+define('APPDB_HOSTNAME', 'XXXX');
+define('APPDB_USERNAME', 'XXXX');
+define('APPDB_PASSWORD', 'XXXX');
+define('APPDB_DATABASE', 'XXXX');
 
 global $ADODB_CACHE_DIR;
 $ADODB_CACHE_DIR = APP_DIR . "/cache/ADODB_CACHE/";
