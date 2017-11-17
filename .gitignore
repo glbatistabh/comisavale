@@ -1,0 +1,7 @@
+*.tgz
+log/
+cache/
+.cache/
+valesErro/
+valesPendentes/
+valesProcessados/
